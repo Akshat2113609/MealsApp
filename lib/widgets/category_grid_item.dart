@@ -5,12 +5,16 @@ class CategoryGridItem extends StatelessWidget {
   const CategoryGridItem({
     super.key,
     required this.category,
+    required this.onSelectCategory,
   });
   final Category category;
+  final void Function() onSelectCategory;
+
+  @override
   Widget build(context) {
     // can also use GestureDetector for setting the ontapped but it will not give a visual feedback
     return InkWell(
-      onTap:(){},
+      onTap:onSelectCategory,
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(14),
       child: Container(
