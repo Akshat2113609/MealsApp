@@ -1,5 +1,3 @@
-import 'dart:nativewrappers/_internal/vm/lib/ffi_patch.dart';
-
 import 'package:flutter/material.dart';
 import 'package:myapp/screens/categories.dart';
 import 'package:myapp/screens/meals.dart';
