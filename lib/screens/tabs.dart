@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'package:myapp/data/dummy_data.dart';
 import 'package:myapp/models/meal.dart';
 import 'package:myapp/screens/categories.dart';
-import 'package:myapp/screens/meals.dart';
 import 'package:myapp/screens/filters.dart';
+import 'package:myapp/screens/meals.dart';
 import 'package:myapp/widgets/main_drawer.dart';
 
 const kInitialFilters = {
   Filter.glutenFree: false,
   Filter.lactoseFree: false,
   Filter.vegetarian: false,
-  Filter.vegan: false,
+  Filter.vegan: false
 };
 
 class TabsScreen extends StatefulWidget {
@@ -63,14 +64,15 @@ class _TabsScreenState extends State<TabsScreen> {
     if (identifier == 'filters') {
       final result = await Navigator.of(context).push<Map<Filter, bool>>(
         MaterialPageRoute(
-          builder: (ctx) => const FiltersScreen(),
+          builder: (ctx) => FiltersScreen(
+            currentFilters: _selectedFilters,
+          ),
         ),
       );
-      if (result != null) {
-        setState(() {
-          _selectedFilters = result;
-        });
-      }
+
+      setState(() {
+        _selectedFilters = result ?? kInitialFilters;
+      });
     }
   }
 
@@ -93,17 +95,15 @@ class _TabsScreenState extends State<TabsScreen> {
     }).toList();
 
     Widget activePage = CategoriesScreen(
-      onToggleFavourite: _toggleMealFavoriteStatus, // Keep this
+      onToggleFavourite: _toggleMealFavoriteStatus,
       availableMeals: availableMeals,
-      // Remove this duplicate: onToggleFavourite: (Meal meal) { },
     );
     var activePageTitle = 'Categories';
 
     if (_selectedPageIndex == 1) {
       activePage = MealsScreen(
         meals: _favoriteMeals,
-        onToggleFavourite: _toggleMealFavoriteStatus, // Keep this
-        // Remove this duplicate: onToggleFavourite: (Meal meal) { },
+        onToggleFavourite: _toggleMealFavoriteStatus,
       );
       activePageTitle = 'Your Favorites';
     }
